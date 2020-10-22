@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -30,6 +31,7 @@ class PostController extends Controller
     {
         // $posts = Post::all();
         $posts = Post::where('user_id', Auth::id())->orderby('created_at', 'desc')->get();
+
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -40,7 +42,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $tags = Tag::all();
+        return view('admin.posts.create', compact('tags'));
     }
 
     /**
@@ -60,7 +63,12 @@ class PostController extends Controller
         $data['slug'] = Str::slug($data['title'], '-');
         $newPost = new Post();
         $newPost->fill($data);
+        // dd($data['tags']);
+        
         $saved = $newPost->save();
+
+        $newPost->tags()->attach($data['tags']);
+
         if($saved){
             return redirect()->route('posts.index');
         }
@@ -85,7 +93,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post', 'tags'));
     }
 
     /**
@@ -102,6 +111,7 @@ class PostController extends Controller
         $data['slug'] = Str::slug($data['title'], '-');
         // dd($post->user_id);
         //inserire il validate
+        $post->tags()->sync($data['tags']);
         $post->update($data);
         return redirect()->route('posts.index')->with('status', 'Hai modificato correttamente il post ' . $post->id);
     }
