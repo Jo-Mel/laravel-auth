@@ -23,6 +23,12 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
 {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/posts', 'PostController');
+
+    // GET  /admin/posts/
+    // GET  /admin/posts/{id}
+    // POST /admin/posts/create     CR
+    // POST /admin/posts/{id}/edit  U
+    // POST /admin/posts/delete     D
 });
 
 //alternativa
