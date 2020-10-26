@@ -32,6 +32,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="mt-4 justify-content-center">
+        {{ $posts->links() }}
+    </div>
 
             
 

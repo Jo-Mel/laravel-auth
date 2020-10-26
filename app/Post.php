@@ -11,6 +11,7 @@ class Post extends Model
         'title',
         'body',
         'slug',
+        'img',
         'updated_at'
     ];
     public function user()
@@ -19,7 +20,7 @@ class Post extends Model
     }
 
     public function tags()
-{
-return $this->belongsToMany('App\Tag');
-}
+    {
+    return $this->belongsToMany('App\Tag');
+    }
 }
