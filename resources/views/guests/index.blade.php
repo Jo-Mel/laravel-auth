@@ -6,7 +6,7 @@
             @foreach ( $posts as $post )
 
             <div class="col-sm-4">
-                <div class="card">
+                <div class="card p-3 mt-4">
                     <img
                         src="{{ Storage::url($post->img) }}" height="300px"
                         class="card-img-top"
