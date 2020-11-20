@@ -21,6 +21,9 @@
                                 >{{ $post->user->name }}</small
                             >
                         </p>
+                    <p class="card-text">
+                        <small class="text-muted">Ultima modifica {{ \Carbon\Carbon::parse($post->updated_at)->format('d-m-Y H:i')}}</small>
+                    </p>
                     <a href="{{ route('guest.posts.show', $post->slug) }}" class="btn btn-dark">Leggi</a>
                     </div>
                 </div>
